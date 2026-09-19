@@ -16,12 +16,14 @@ interface ResidenceView {
 interface CollectionMedia {
   src: string;
   alt: string;
-  artistImpression: boolean;
+  artistImpression?: boolean;
+  caption?: string;
 }
 
 interface ResidenceExplorerProps {
   residences: readonly ResidenceView[];
   towerMedia: Record<TowerCode, CollectionMedia>;
+  residenceMedia: Record<string, CollectionMedia>;
 }
 
 const towers: readonly TowerCode[] = ["M", "P"];
@@ -29,6 +31,7 @@ const towers: readonly TowerCode[] = ["M", "P"];
 export function ResidenceExplorer({
   residences,
   towerMedia,
+  residenceMedia,
 }: ResidenceExplorerProps) {
   const [tower, setTower] = useState<TowerCode>("M");
   const [selectedId, setSelectedId] = useState<string | undefined>(
@@ -38,7 +41,8 @@ export function ResidenceExplorer({
   const visible = residences.filter((residence) => residence.tower === tower);
   const selected =
     visible.find((residence) => residence.id === selectedId) ?? visible[0];
-  const media = towerMedia[tower];
+  const selectedMedia = selected ? residenceMedia[selected.id] : undefined;
+  const media = selectedMedia ?? towerMedia[tower];
 
   function selectTower(nextTower: TowerCode) {
     setTower(nextTower);
@@ -127,12 +131,16 @@ export function ResidenceExplorer({
               fill
               loading="lazy"
               sizes="(max-width: 1023px) calc(100vw - 8vw), 45vw"
-              className="object-cover object-center"
+              className={
+                selectedMedia ? "object-contain" : "object-cover object-center"
+              }
             />
           </div>
           <figcaption className="text-muted mt-4 flex flex-wrap justify-between gap-x-4 gap-y-1 text-[0.625rem] leading-5 tracking-[0.08em] uppercase">
             <span>
-              Phối cảnh kiến trúc Tower {tower} · Không phải mặt bằng căn hộ
+              {selectedMedia
+                ? selectedMedia.caption
+                : `Phối cảnh kiến trúc Tower ${tower} · Không phải mặt bằng căn hộ`}
             </span>
             {media.artistImpression ? (
               <span>Hình phối cảnh | Artist&apos;s impression</span>

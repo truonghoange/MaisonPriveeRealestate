@@ -1,8 +1,12 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { residenceCollectionMedia } from "@/data/media";
+import { residenceFloorPlans } from "@/data/residenceImages";
 import { residences } from "@/data/residences";
 
 import { ResidenceExplorer } from "./ResidenceExplorer";
@@ -14,6 +18,29 @@ export function ResidenceCollection() {
     displayName,
     area,
   }));
+  const residenceMedia: Record<
+    string,
+    { src: string; alt: string; caption: string }
+  > = {};
+
+  for (const residence of residences) {
+    const plan = residenceFloorPlans[residence.id];
+    const diskPath = join(
+      process.cwd(),
+      "public",
+      "media",
+      "residences",
+      "types",
+      plan.fileName,
+    );
+    if (!existsSync(diskPath)) continue;
+
+    residenceMedia[residence.id] = {
+      src: `/media/residences/types/${plan.fileName}`,
+      alt: plan.caption,
+      caption: plan.caption,
+    };
+  }
 
   return (
     <Section
@@ -42,6 +69,7 @@ export function ResidenceCollection() {
         </div>
         <ResidenceExplorer
           residences={collection}
+          residenceMedia={residenceMedia}
           towerMedia={{
             M: {
               src: residenceCollectionMedia.M.src,
