@@ -1,0 +1,65 @@
+import { createProjectTrainingSource } from "@/lib/content";
+import type { ProjectCreator } from "@/types/creator";
+
+export const projectCreators = [
+  {
+    id: "capitaland-development",
+    name: "CapitaLand Development",
+    category: "developer",
+    roleVi: "Chủ đầu tư chính",
+    roleEn: "Lead developer",
+    source: createProjectTrainingSource(14),
+  },
+  {
+    id: "mitsubishi-estate",
+    name: "Mitsubishi Estate",
+    category: "joint-venture-partner",
+    roleVi: "Phối hợp cùng",
+    roleEn: "In a joint venture with",
+    source: createProjectTrainingSource(14),
+  },
+  {
+    id: "nomura-real-estate-development",
+    name: "Nomura Real Estate Development",
+    category: "joint-venture-partner",
+    roleVi: "Phối hợp cùng",
+    roleEn: "In a joint venture with",
+    source: createProjectTrainingSource(14),
+  },
+  {
+    id: "p-and-t-group",
+    name: "P&T Group",
+    category: "architecture",
+    roleVi: "Thiết kế kiến trúc",
+    roleEn: "Architecture design",
+    country: "Singapore",
+    source: createProjectTrainingSource(24),
+  },
+  {
+    id: "steve-leung-design",
+    name: "Steve Leung Design",
+    category: "interior",
+    roleVi: "Thiết kế nội thất",
+    roleEn: "Interior design",
+    country: "Hong Kong",
+    source: createProjectTrainingSource(24),
+  },
+  {
+    id: "ptang-studio",
+    name: "Ptang Studio",
+    category: "interior",
+    roleVi: "Thiết kế nội thất",
+    roleEn: "Interior design",
+    country: "Hong Kong",
+    source: createProjectTrainingSource(24),
+  },
+  {
+    id: "redland-scape",
+    name: "Redland-Scape",
+    category: "landscape",
+    roleVi: "Thiết kế cảnh quan",
+    roleEn: "Landscape design",
+    country: "Thailand",
+    source: createProjectTrainingSource(24),
+  },
+] as const satisfies readonly ProjectCreator[];

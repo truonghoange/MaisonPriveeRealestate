@@ -1,0 +1,28 @@
+.header {
+  border-bottom-width: 1px;
+  transition-property: background-color, color, border-color;
+  transition-duration: 420ms;
+  transition-timing-function: var(--ease-luxury);
+}
+
+.header[data-surface="overlay"] {
+  --background: transparent;
+  --foreground: var(--color-ivory-50);
+  --surface: var(--color-navy-900);
+  --muted: var(--color-ivory-100);
+  --border: transparent;
+  --control-border: rgb(250 248 243 / 42%);
+  --accent-text: var(--color-champagne-500);
+  color-scheme: dark;
+}
+
+.header[data-surface="solid"] {
+  --background: var(--color-ivory-50);
+  --foreground: var(--color-navy-950);
+  --surface: var(--color-ivory-100);
+  --muted: var(--color-bronze-600);
+  --border: rgb(16 24 36 / 16%);
+  --control-border: rgb(16 24 36 / 48%);
+  --accent-text: var(--color-bronze-600);
+  color-scheme: light;
+}
